@@ -2,6 +2,7 @@ package com.mtrybala.portfolio.controller;
 
 import com.mtrybala.portfolio.model.Project;
 import com.mtrybala.portfolio.service.ProjectService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class ProjectController {
                 projectService.getAllProjects();
     }
     @PostMapping
-    public ResponseEntity<Project> addProject(@RequestBody Project project) {
+    public ResponseEntity<Project> addProject(@Valid @RequestBody Project project) {
         Project savedProject = projectService.saveProject(project);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -34,7 +35,7 @@ public class ProjectController {
                 ResponseEntity.created(location).body(savedProject);
     }
     @PutMapping("/{id}")
-    public ResponseEntity <Project> updateProject(@PathVariable Long id , @RequestBody Project projectDetails){
+    public ResponseEntity <Project> updateProject(@PathVariable Long id ,@Valid @RequestBody Project projectDetails){
         Project updatedProject = projectService.updateProject(id , projectDetails);
         return
                 ResponseEntity.ok(updatedProject);

@@ -4,14 +4,22 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Title is required")
+    @Size(min = 3 , max = 100 , message = "Title must be between 3 and 100 characters ")
     private String title;
+    @NotBlank(message = "Description is required")
+    @Size(min = 10 , max = 500 , message = "Description must be between 10 and 500 characters")
     private String description;
+    @NotBlank(message = "Technology stack is required")
+    @Size(min = 1 , max = 255 , message = "Technology stack must be between 1 and 255 characters")
     private String technologyStack;
 
     public Long getId() {
