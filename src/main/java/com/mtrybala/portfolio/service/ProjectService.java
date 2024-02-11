@@ -4,6 +4,8 @@ import com.mtrybala.portfolio.exception.ResourceNotFoundException;
 import com.mtrybala.portfolio.model.Project;
 import com.mtrybala.portfolio.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +18,10 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
-    public List<Project> getAllProjects() {
-        return
-                projectRepository.findAll();
+    public Page<Project> getAllProjects(Pageable pageable) {
+        return projectRepository.findAll(pageable);
     }
+
 
     public Project saveProject(Project project) {
         return

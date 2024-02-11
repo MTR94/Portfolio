@@ -4,6 +4,8 @@ import com.mtrybala.portfolio.model.Project;
 import com.mtrybala.portfolio.service.ProjectService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,11 +21,12 @@ public class ProjectController {
     public ProjectController(ProjectService projectService){
         this.projectService = projectService;
     }
+
     @GetMapping
-    public List<Project> getAllProjects(){
-        return
-                projectService.getAllProjects();
+    public Page<Project> getAllProjects(Pageable pageable) {
+        return projectService.getAllProjects(pageable);
     }
+
     @PostMapping
     public ResponseEntity<Project> addProject(@Valid @RequestBody Project project) {
         Project savedProject = projectService.saveProject(project);
