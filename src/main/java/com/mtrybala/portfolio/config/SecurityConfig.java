@@ -18,10 +18,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/projects").permitAll()
-                        .requestMatchers("/projects/config").hasRole("ADMIN")
-                        .anyRequest().authenticated())
-                .httpBasic(withDefaults());
+                        .requestMatchers("/projects/**").hasAnyRole("USER", "ADMIN") // dostęp dla użytkowników i adminów
+                        .requestMatchers("/projects/config/**").hasRole("ADMIN") // dostęp tylko dla adminów
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // dostęp do ścieżek administracyjnych tylko dla adminów
+                        .anyRequest().authenticated() // wszystkie inne żądania wymagają uwierzytelnienia
+                )
+                .httpBasic(withDefaults()); // metoda uwierzytelniania
+
         return http.build();
     }
 }
