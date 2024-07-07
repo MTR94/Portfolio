@@ -1,4 +1,5 @@
 package com.mtrybala.portfolio.service;
+
 import com.mtrybala.portfolio.model.User;
 import com.mtrybala.portfolio.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
